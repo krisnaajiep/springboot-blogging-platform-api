@@ -12,6 +12,8 @@ Version 1.0
 
 import com.krisnaajiep.bloggingplatformapi.dto.PostRequestDTO;
 import com.krisnaajiep.bloggingplatformapi.dto.PostResponseDTO;
+import com.krisnaajiep.bloggingplatformapi.mapper.PostMapper;
+import com.krisnaajiep.bloggingplatformapi.model.Post;
 import com.krisnaajiep.bloggingplatformapi.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDTO createPost(PostRequestDTO postRequestDTO) {
-        return null;
+        Post post = PostMapper.toPost(postRequestDTO);
+        post = postRepository.save(post);
+        return PostMapper.toPostResponseDTO(post);
     }
 
     @Override
