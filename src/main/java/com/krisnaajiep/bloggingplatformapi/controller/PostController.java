@@ -13,6 +13,8 @@ Version 1.0
 import com.krisnaajiep.bloggingplatformapi.dto.PostRequestDTO;
 import com.krisnaajiep.bloggingplatformapi.dto.PostResponseDTO;
 import com.krisnaajiep.bloggingplatformapi.service.PostService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +34,11 @@ public class PostController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO postRequestDTO) {
-        return null;
+    public ResponseEntity<PostResponseDTO> createPost(
+            @Valid @RequestBody PostRequestDTO postRequestDTO
+    ) {
+        PostResponseDTO postResponseDTO = postService.createPost(postRequestDTO);
+        return new ResponseEntity<>(postResponseDTO, HttpStatus.CREATED);
     }
 
     @PutMapping(
@@ -43,7 +48,7 @@ public class PostController {
     )
     public ResponseEntity<PostResponseDTO> updatePost(
             @PathVariable Integer id,
-            @RequestBody PostRequestDTO postRequestDTO) {
+            @Valid @RequestBody PostRequestDTO postRequestDTO) {
         return null;
     }
 
