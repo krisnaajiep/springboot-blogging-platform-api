@@ -51,7 +51,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePost(Integer id) {
-
+        try {
+            postRepository.deleteById(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
     @Override
