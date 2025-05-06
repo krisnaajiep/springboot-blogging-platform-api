@@ -49,7 +49,25 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public Post update(Post post) {
-        return null;
+        String sql = "UPDATE Post SET title = ?, content = ?, category = ?, tags = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                post.getTitle(),
+                post.getContent(),
+                post.getCategory(),
+                post.getTags(),
+                post.getId()
+        );
+
+        if (rowsAffected == 0) {
+            return null;
+        } else {
+            return jdbcTemplate.queryForObject(
+                    "SELECT * FROM Post WHERE id = ?",
+                    new PostRowMapper(),
+                    post.getId()
+            );
+        }
     }
 
     @Override
