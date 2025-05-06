@@ -65,7 +65,8 @@ public class PostController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<PostResponseDTO> getPostById(@PathVariable Integer id) {
-        return null;
+        PostResponseDTO postResponseDTO = postService.getPostById(id);
+        return new ResponseEntity<>(postResponseDTO, HttpStatus.OK);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
