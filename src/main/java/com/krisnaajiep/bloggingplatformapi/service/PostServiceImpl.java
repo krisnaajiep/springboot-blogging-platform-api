@@ -15,7 +15,9 @@ import com.krisnaajiep.bloggingplatformapi.dto.PostResponseDTO;
 import com.krisnaajiep.bloggingplatformapi.mapper.PostMapper;
 import com.krisnaajiep.bloggingplatformapi.model.Post;
 import com.krisnaajiep.bloggingplatformapi.repository.PostRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,7 +38,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDTO updatePost(Integer id, PostRequestDTO postRequestDTO) {
-        return null;
+        Post post = PostMapper.toPost(postRequestDTO);
+        post.setId(id);
+        post = postRepository.update(post);
+
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with id " + id + " not found");
+        }
+
+        return PostMapper.toPostResponseDTO(post);
     }
 
     @Override
