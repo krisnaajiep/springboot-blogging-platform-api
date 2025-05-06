@@ -93,8 +93,17 @@ public class JdbcPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAll() {
-        String sql = "SELECT * FROM Post";
-        return jdbcTemplate.query(sql, new PostRowMapper());
+    public List<Post> findAll(String term) {
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM Post");
+
+        if (term != null) {
+            sqlBuilder.append(" WHERE LOWER(title) LIKE LOWER(CONCAT('%', ?, '%')) ")
+                    .append("OR LOWER(content) LIKE LOWER(CONCAT('%', ?, '%')) ")
+                    .append("OR LOWER(category) LIKE LOWER(CONCAT('%', ?, '%'))");
+
+            return jdbcTemplate.query(sqlBuilder.toString(), new PostRowMapper(), term, term, term);
+        }
+
+        return jdbcTemplate.query(sqlBuilder.toString(), new PostRowMapper());
     }
 }
