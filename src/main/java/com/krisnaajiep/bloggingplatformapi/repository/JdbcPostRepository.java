@@ -72,7 +72,11 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public void deleteById(Integer id) {
-
+        String sql = "DELETE FROM Post WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+        if (rowsAffected == 0) {
+            throw new IllegalArgumentException("Post with id " + id + " not found");
+        }
     }
 
     @Override
