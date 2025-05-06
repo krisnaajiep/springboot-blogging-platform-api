@@ -20,5 +20,5 @@ public interface PostService {
     PostResponseDTO updatePost(Integer id, PostRequestDTO postRequestDTO);
     void deletePost(Integer id);
     PostResponseDTO getPostById(Integer id);
-    List<PostResponseDTO> getAllPosts();
+    List<PostResponseDTO> getAllPosts(String term);
 }
