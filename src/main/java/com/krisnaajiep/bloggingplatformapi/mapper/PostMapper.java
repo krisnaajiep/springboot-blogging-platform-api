@@ -43,7 +43,7 @@ public class PostMapper {
 
     private static List<String> parseTagsString(String tags) {
         return Arrays.asList(
-                tags.replaceAll("[\\[\\]]", "")
+                tags.replaceAll("[\\[\\]\\s]", "")
                         .split(",")
         );
     }
