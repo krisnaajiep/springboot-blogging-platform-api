@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public interface PostRepository {
     Post save(Post post);
-    Post update(Post post);
+    Optional<Post> update(Post post);
     void deleteById(Integer id);
     Optional<Post> findById(Integer id);
     List<Post> findAll(String term);

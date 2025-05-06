@@ -45,11 +45,11 @@ public class JdbcPostRepository implements PostRepository {
         }, keyHolder);
 
         Integer newId = Objects.requireNonNull(keyHolder.getKey()).intValue();
-        return jdbcTemplate.queryForObject("SELECT * FROM Post WHERE id = ?", new PostRowMapper(), newId);
+        return findById(newId).orElse(post);
     }
 
     @Override
-    public Post update(Post post) {
+    public Optional<Post> update(Post post) {
         String sql = "UPDATE Post SET title = ?, content = ?, category = ?, tags = ? WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(
                 sql,
@@ -61,13 +61,9 @@ public class JdbcPostRepository implements PostRepository {
         );
 
         if (rowsAffected == 0) {
-            return null;
+            return Optional.empty();
         } else {
-            return jdbcTemplate.queryForObject(
-                    "SELECT * FROM Post WHERE id = ?",
-                    new PostRowMapper(),
-                    post.getId()
-            );
+            return findById(post.getId());
         }
     }
 
