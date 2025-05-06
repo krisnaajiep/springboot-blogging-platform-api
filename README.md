@@ -12,6 +12,7 @@
 - [HTTP Response Code](#http-response-code)
 - [Project Status](#project-status)
 - [Acknowledgements](#acknowledgements)
+- [License](#license)
 
 ## General Information
 
@@ -67,20 +68,8 @@ How to install:
    ```bash
    sqlcmd -S <host> -U <username> -P <password> -No -i "db/BloggingPlatformAPI.sql"
    ```
-
-4. Build the project
-
-   ```bash
-   mvn clean package
-   ```
-
-5. Copy the JAR file from the target/ directory
-
-   ```bash
-   cp target/blogging-platform-api-0.0.1-SNAPSHOT.jar blogging-platform-api.jar 
-   ```
-
-6. Set environment variables for database configuration
+   
+4. Set environment variables for database configuration
 
    ```bash
    export DB_HOST=<host>
@@ -88,6 +77,18 @@ How to install:
    export DB_NAME=BloggingPlatformAPI
    export DB_USERNAME=<username>
    export DB_PASSWORD=<password>
+   ```
+
+5. Build the project
+
+   ```bash
+   mvn clean package
+   ```
+
+6. Copy the JAR file from the target/ directory
+
+   ```bash
+   cp target/blogging-platform-api-0.0.1-SNAPSHOT.jar blogging-platform-api.jar 
    ```
 
 7. Run the JAR file
@@ -290,3 +291,7 @@ Project is: _complete_.
 ## Acknowledgements
 
 This project was inspired by [roadmap.sh](https://roadmap.sh/projects/blogging-platform-api).
+
+## License
+
+This project is licensed under the MIT License—see the [LICENSE](./LICENSE) file for details.
