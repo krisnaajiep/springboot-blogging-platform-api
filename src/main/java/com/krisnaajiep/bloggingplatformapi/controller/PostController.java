@@ -48,8 +48,10 @@ public class PostController {
     )
     public ResponseEntity<PostResponseDTO> updatePost(
             @PathVariable Integer id,
-            @Valid @RequestBody PostRequestDTO postRequestDTO) {
-        return null;
+            @Valid @RequestBody PostRequestDTO postRequestDTO
+    ) {
+        PostResponseDTO postResponseDTO = postService.updatePost(id, postRequestDTO);
+        return new ResponseEntity<>(postResponseDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
