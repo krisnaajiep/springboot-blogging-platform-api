@@ -20,5 +20,5 @@ public interface PostRepository {
     Post update(Post post);
     void deleteById(Integer id);
     Optional<Post> findById(Integer id);
-    List<Post> findAll();
+    List<Post> findAll(String term);
 }
