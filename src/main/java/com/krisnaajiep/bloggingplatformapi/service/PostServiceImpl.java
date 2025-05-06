@@ -60,7 +60,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDTO getPostById(Integer id) {
-        return null;
+        Post post = postRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Post with id " + id + " not found"
+                        ));
+
+        return PostMapper.toPostResponseDTO(post);
     }
 
     @Override
