@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 public class JdbcPostRepository implements PostRepository {
@@ -80,8 +81,15 @@ public class JdbcPostRepository implements PostRepository {
     }
 
     @Override
-    public Post findById(Integer id) {
-        return null;
+    public Optional<Post> findById(Integer id) {
+        String sql = "SELECT * FROM Post WHERE id = ?";
+
+        try {
+            Post post = jdbcTemplate.queryForObject(sql, new PostRowMapper(), id);
+            return Optional.ofNullable(post);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override
