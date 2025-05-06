@@ -55,8 +55,9 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Integer id) {
-
+    public ResponseEntity<Void> deletePost(@PathVariable Integer id) {
+        postService.deletePost(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(
