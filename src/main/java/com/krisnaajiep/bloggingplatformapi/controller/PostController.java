@@ -70,7 +70,7 @@ public class PostController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
-        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
+    public ResponseEntity<List<PostResponseDTO>> getAllPosts(@RequestParam(required = false) String term) {
+        return new ResponseEntity<>(postService.getAllPosts(term), HttpStatus.OK);
     }
 }
