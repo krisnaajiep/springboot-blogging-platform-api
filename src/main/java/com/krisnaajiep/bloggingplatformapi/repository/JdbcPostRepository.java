@@ -94,6 +94,7 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        return List.of();
+        String sql = "SELECT * FROM Post";
+        return jdbcTemplate.query(sql, new PostRowMapper());
     }
 }
