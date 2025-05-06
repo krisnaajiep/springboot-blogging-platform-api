@@ -13,11 +13,12 @@ Version 1.0
 import com.krisnaajiep.bloggingplatformapi.model.Post;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository {
     Post save(Post post);
     Post update(Post post);
     void deleteById(Integer id);
-    Post findById(Integer id);
+    Optional<Post> findById(Integer id);
     List<Post> findAll();
 }
