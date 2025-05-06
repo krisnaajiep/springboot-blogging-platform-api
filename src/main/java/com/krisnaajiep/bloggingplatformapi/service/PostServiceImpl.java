@@ -40,11 +40,9 @@ public class PostServiceImpl implements PostService {
     public PostResponseDTO updatePost(Integer id, PostRequestDTO postRequestDTO) {
         Post post = PostMapper.toPost(postRequestDTO);
         post.setId(id);
-        post = postRepository.update(post);
-
-        if (post == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with id " + id + " not found");
-        }
+        post = postRepository.update(post).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with id " + id + " not found")
+        );
 
         return PostMapper.toPostResponseDTO(post);
     }
@@ -60,19 +58,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDTO getPostById(Integer id) {
-        Post post = postRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                "Post with id " + id + " not found"
-                        ));
+        Post post = postRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with id " + id + " not found")
+        );
 
         return PostMapper.toPostResponseDTO(post);
     }
 
     @Override
     public List<PostResponseDTO> getAllPosts(String term) {
-        return postRepository.findAll(term).stream()
+        return postRepository
+                .findAll(term)
+                .stream()
                 .map(PostMapper::toPostResponseDTO)
                 .toList();
     }
