@@ -1,4 +1,4 @@
-package com.krisnaajiep.bloggingplatformapi.exception;
+package com.krisnaajiep.bloggingplatformapi.handler;
 
 /*
 IntelliJ IDEA 2025.1 (Ultimate Edition)
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private final Map<String, String> errors = new LinkedHashMap<>();
+    private final Map<String, String> errors = new HashMap<>();
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -34,6 +34,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             @NonNull HttpStatusCode status,
             @NonNull WebRequest request
     ) {
+        errors.clear();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage())
         );
